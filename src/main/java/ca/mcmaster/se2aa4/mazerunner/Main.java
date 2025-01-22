@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import javax.swing.text.html.Option;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,30 +11,38 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.Option;
+
 import org.apache.commons.cli.ParseException;
 
 
 public class Main {
 
-    private static final java.util.logging.Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
 
-        Options options = new Option();
+        Options options = new Options();
+        CommandLine cmd = null;
+        String inputFile;
+
         options.addOption("i", true, "reads a maze from a file");
         CommandLineParser parser = new DefaultParser();
         
+        
+        
         try{
-            CommandLine cmd = parser.parse(options,args);
+            cmd = parser.parse(options,args);
         }
         catch(ParseException exp) {
-            logger.error("An aerror occured in creating an instance of the command line!");
+            logger.error("An error occured in creating an instance of the command line!");
         }
 
         logger.info("** Starting Maze Runner");
+
         try {
             if (cmd.hasOption("i")){
-                String inputFile = cmd.getOptionValue("i");
+                inputFile = cmd.getOptionValue("i");
 
                 logger.trace("**** Reading the maze from file " + inputFile);
 
