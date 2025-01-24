@@ -31,6 +31,7 @@ public class Main {
         String inputFile;
         Options options = new Options();
         options.addOption("i", true, "reads a maze from a file");
+        options.addOption("p", true, "checks if the given path is correct");
 
         Maze maze = new Maze();     /*Creating an instance of the Maze class */
         
@@ -51,19 +52,27 @@ public class Main {
                 logger.trace("**** Reading the maze from file " + inputFile);
 
                 maze.createMaze(inputFile);
+                maze.displayMaze();
             }
-        } catch(Exception e) {
+        } 
+        catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
-        maze.displayMaze();
+        
 
         logger.trace("**** Computing path");
         Path path = new Path(maze);     /*Creating an instance of the Path Class */
         path.generatePath();
-
         System.out.println();
 
-        path.displayPath();
+
+        if (cmd.hasOption("p")) {
+            String inputPath = cmd.getOptionValue("p");
+            path.pathChecker(inputPath);
+        }
+        else {
+            path.displayPath();
+        }
 
         //logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");

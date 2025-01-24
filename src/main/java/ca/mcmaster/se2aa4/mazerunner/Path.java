@@ -18,4 +18,13 @@ public class Path {
     public void displayPath() {
         System.out.println("Path: " + instruction);
     }
+
+    public void pathChecker(String str) {
+        if (str.equals(instruction.toString())) {
+            System.out.println("The path given is correct!");
+        }
+        else {
+            System.out.println("The path given does not work!");
+        }
+    }
 }
