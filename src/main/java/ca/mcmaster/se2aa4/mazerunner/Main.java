@@ -3,9 +3,12 @@ package ca.mcmaster.se2aa4.mazerunner;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -19,18 +22,21 @@ import org.apache.commons.cli.ParseException;
 public class Main {
 
     private static final Logger logger = LogManager.getLogger();
+    private static CommandLine cmd = null;
+    private static CommandLineParser parser = new DefaultParser();
 
     public static void main(String[] args) {
 
-        Options options = new Options();
-        CommandLine cmd = null;
         String inputFile;
+        Options options = new Options();
 
         options.addOption("i", true, "reads a maze from a file");
-        CommandLineParser parser = new DefaultParser();
+
+        Maze maze = new Maze();     /*Creating an instance of the Maze class */
         
         
         
+        /*Creating an instance of the CommandLine object */
         try{
             cmd = parser.parse(options,args);
         }
@@ -46,22 +52,13 @@ public class Main {
 
                 logger.trace("**** Reading the maze from file " + inputFile);
 
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    for (int idx = 0; idx < line.length(); idx++) {
-                        if (line.charAt(idx) == '#') {
-                            System.out.print("WALL ");
-                        } else if (line.charAt(idx) == ' ') {
-                            System.out.print("PASS ");
-                        }
-                    }
-                    System.out.print(System.lineSeparator());
-                }
+                maze.createMaze(inputFile);
             }
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
+        maze.displayMaze();
+
         logger.trace("**** Computing path");
         logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");

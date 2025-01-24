@@ -1,5 +1,9 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Maze {
@@ -12,10 +16,24 @@ public class Maze {
         maze = new ArrayList<>();
     }
     
-    public void addRow(ArrayList<Character> row) {
-        maze.add(row);
-    }
+    public void createMaze(String inputFile) throws IOException, FileNotFoundException{
+     
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        String line;
 
+        /*Replicating the maze in the maze object */
+        while ((line = reader.readLine()) != null) {
+
+            ArrayList<Character> row = new ArrayList<>();
+
+            for (int idx = 0; idx < line.length(); idx++) {
+                row.add(line.charAt(idx));
+            }
+            maze.addRow(row);
+        }
+    
+    }
+        
     public void displayMaze() {
         for (ArrayList<Character> row : maze) {
             for (Character cur : row) {
