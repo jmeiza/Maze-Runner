@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class Path {
     private StringBuilder instruction;
+    private Maze map;
 
-    public Path() {
+    public Path(Maze map) {
         instruction = new StringBuilder();
+        this.map = map;
     }
 
     public void generatePath() {
@@ -14,6 +16,6 @@ public class Path {
     }
 
     public void displayPath() {
-        System.out.println(instruction);
+        System.out.println("Path: " + instruction);
     }
 }

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Path;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -29,14 +30,11 @@ public class Main {
 
         String inputFile;
         Options options = new Options();
-
         options.addOption("i", true, "reads a maze from a file");
 
         Maze maze = new Maze();     /*Creating an instance of the Maze class */
         
         
-        
-        /*Creating an instance of the CommandLine object */
         try{
             cmd = parser.parse(options,args);
         }
@@ -44,8 +42,8 @@ public class Main {
             logger.error("An error occured in creating an instance of the command line!");
         }
 
-        logger.info("** Starting Maze Runner");
 
+        logger.info("** Starting Maze Runner");
         try {
             if (cmd.hasOption("i")){
                 inputFile = cmd.getOptionValue("i");
@@ -60,8 +58,14 @@ public class Main {
         maze.displayMaze();
 
         logger.trace("**** Computing path");
-        
-        logger.info("PATH NOT COMPUTED");
+        Path path = new Path(maze);     /*Creating an instance of the Path Class */
+        path.generatePath();
+
+        System.out.println();
+
+        path.displayPath();
+
+        //logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
 }
