@@ -29,7 +29,7 @@ public class Maze {
             for (int idx = 0; idx < line.length(); idx++) {
                 row.add(line.charAt(idx));
             }
-            maze.addRow(row);
+            maze.add(row);
         }
     
     }
@@ -43,7 +43,7 @@ public class Maze {
         }
     }
 
-    public int[] getEntry() {
+    public Position getEntry() {
         for (int i = 0; i < maze.size(); i++) {
             if (maze.get(i).get(0) == ' '){
                 entryLocation =  new Position(i, 0);
@@ -52,7 +52,7 @@ public class Maze {
         return entryLocation;
     }
 
-    public int[] getExit() {
+    public Position getExit() {
         for (int i = 0; i < maze.size(); i++) {
             if (maze.get(i).get(maze.get(0).size()-1) == ' '){
                 exitLocation = new Position(i, maze.get(0).size()-1);

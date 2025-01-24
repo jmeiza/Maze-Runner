@@ -60,6 +60,7 @@ public class Main {
         maze.displayMaze();
 
         logger.trace("**** Computing path");
+        
         logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }

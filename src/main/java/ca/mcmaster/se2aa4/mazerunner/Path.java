@@ -9,9 +9,8 @@ public class Path {
         instruction = new StringBuilder();
     }
 
-    public boolean generatePath() {
+    public void generatePath() {
         instruction.append("FRFFLFFFRFLFRFRFF");
-        return true;
     }
 
     public void displayPath() {
