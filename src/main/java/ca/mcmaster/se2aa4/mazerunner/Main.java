@@ -53,6 +53,22 @@ public class Main {
 
                 maze.createMaze(inputFile);
                 maze.displayMaze();
+
+                Path path = new Path(maze);     /*Creating an instance of the Path Class */
+                path.generatePath();
+                
+                if (cmd.hasOption("p")) {
+                    logger.trace("**** Analyzing the given path");
+                    String inputPath = cmd.getOptionValue("p");
+                    path.pathChecker(inputPath);
+                }
+                else {
+                    logger.trace("**** Computing path");
+                    System.out.println();
+                    path.displayCanonicalPath();
+                    path.displayFactorizedPath();
+                    
+                }
             }
         } 
         catch(Exception e) {
@@ -60,21 +76,8 @@ public class Main {
         }
         
 
-        logger.trace("**** Computing path");
-        Path path = new Path(maze);     /*Creating an instance of the Path Class */
-        path.generatePath();
-        System.out.println();
-
-
-        if (cmd.hasOption("p")) {
-            String inputPath = cmd.getOptionValue("p");
-            path.pathChecker(inputPath);
-        }
-        else {
-            path.displayPath();
-        }
-
         //logger.info("PATH NOT COMPUTED");
+        System.out.println();
         logger.info("** End of MazeRunner");
     }
 }
