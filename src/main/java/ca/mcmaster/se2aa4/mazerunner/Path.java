@@ -12,8 +12,9 @@ public class Path {
         this.map = map;
     }
 
-    public void generatePath() {
-        canonicalPath.append("FRFFLFFFRFLFRFRFF");
+    public void getPath() {
+        RightHand algorithm = new RightHand(map.getEntry(), map.getExit(), map.getMaze());
+        canonicalPath = algorithm.generatePath();
     }
 
     public void displayCanonicalPath() {

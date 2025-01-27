@@ -31,6 +31,7 @@ public class Maze {
             }
             maze.add(row);
         }
+        reader.close();
     
     }
         
@@ -47,6 +48,7 @@ public class Maze {
         for (int i = 0; i < maze.size(); i++) {
             if (maze.get(i).get(0) == ' '){
                 entryLocation =  new Position(i, 0);
+                break;
             }
         }
         return entryLocation;
@@ -56,16 +58,28 @@ public class Maze {
         for (int i = 0; i < maze.size(); i++) {
             if (maze.get(i).get(maze.get(0).size()-1) == ' '){
                 exitLocation = new Position(i, maze.get(0).size()-1);
+                break;
             }
         }
         return exitLocation;
     }
     
+    public ArrayList<ArrayList<Character>> getMaze() {
 
+        ArrayList<ArrayList<Character>> copy = new ArrayList<>();
 
+        for (ArrayList<Character> row : this.maze) {
+            copy.add(new ArrayList<>(row)); // Create a new list for each
+        }
+        return copy;
 
+    }
 
 }
+
+
+
+
 
 
 

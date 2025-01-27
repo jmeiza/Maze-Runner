@@ -55,7 +55,10 @@ public class Main {
                 maze.displayMaze();
 
                 Path path = new Path(maze);     /*Creating an instance of the Path Class */
-                path.generatePath();
+                System.out.println("Checkpoint 1");
+                path.getPath();
+                
+                //System.out.println("Checkpoint 2");
                 
                 if (cmd.hasOption("p")) {
                     logger.trace("**** Analyzing the given path");
@@ -72,7 +75,7 @@ public class Main {
             }
         } 
         catch(Exception e) {
-            logger.error("/!\\ An error has occured /!\\");
+            logger.error("** " + e.getMessage());
         }
         
 
