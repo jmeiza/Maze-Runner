@@ -2,11 +2,11 @@ package main.java.ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
 
-
 public class RightHand extends Algorithm {
 
     private char[] direction = {'N','E','S','W'};
     private StringBuilder instructions = new StringBuilder();
+
     
     public RightHand(Position start, Position end, ArrayList<ArrayList<Character>> maze) {
         super(start, end, maze);
@@ -29,19 +29,18 @@ public class RightHand extends Algorithm {
             else{
                 index = facingWest(index);
             }
-            System.out.println("Moved");
         }
         return instructions;
     }
 
     private int facingNorth(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' '){
-            this.current.updateLocation(-1,0);
-            instructions.append('F');
-        }
-        else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' ') {
             index = (index+1) % direction.length;
             instructions.append('R');
+        }
+        else if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' '){
+            this.current.updateLocation(-1,0);
+            instructions.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;
@@ -51,18 +50,17 @@ public class RightHand extends Algorithm {
     }
 
     private int facingEast(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' '){
-            this.current.updateLocation(0, 1);
-            instructions.append('F');
-        }
-        else if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' ') {
             index = (index+1) % direction.length;
             instructions.append('R');               
         }
+        else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' '){
+            this.current.updateLocation(0, 1);
+            instructions.append('F');
+        }
         else {
             index = (index - 1 + direction.length) % direction.length;
-            instructions.append('L');
-        }
+            instructions.append('L');        }
         return index;
     }
 
@@ -83,13 +81,13 @@ public class RightHand extends Algorithm {
     }
 
     private int facingWest(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == ' '){
-            this.current.updateLocation(0, -1);
-            instructions.append('F');
-        }
-        else if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' ') {
             index = (index + 1) % direction.length;
             instructions.append('R');              
+        }
+        else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == ' '){
+            this.current.updateLocation(0, -1);
+            instructions.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;

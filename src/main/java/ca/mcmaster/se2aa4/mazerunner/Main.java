@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,10 +56,7 @@ public class Main {
                 maze.displayMaze();
 
                 Path path = new Path(maze);     /*Creating an instance of the Path Class */
-                System.out.println("Checkpoint 1");
                 path.getPath();
-                
-                //System.out.println("Checkpoint 2");
                 
                 if (cmd.hasOption("p")) {
                     logger.trace("**** Analyzing the given path");

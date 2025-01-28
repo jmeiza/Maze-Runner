@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 public class Maze {
     
     private ArrayList<ArrayList<Character>> maze;
@@ -21,23 +23,37 @@ public class Maze {
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         String line;
 
-        /*Replicating the maze in the maze object */
+        line = reader.readLine();
+        ArrayList<Character> firstRow = new ArrayList<>();
+
+        for (int idx = 0; idx < line.length(); idx++) {
+            firstRow.add(line.charAt(idx));
+        }
+
+        maze.add(firstRow);         /*Adding the first row to the maze */
+        int maxLength = line.length();          /*Getting the length of the first row since it will always be the longest row */
+
         while ((line = reader.readLine()) != null) {
 
             ArrayList<Character> row = new ArrayList<>();
-
+            
             for (int idx = 0; idx < line.length(); idx++) {
                 row.add(line.charAt(idx));
             }
+
+            /*Paading the row since the file contained lines that are shorter than the others */
+            while (row.size() < maxLength) {
+                row.add(' ');
+            }
+
             maze.add(row);
         }
         reader.close();
-    
     }
         
     public void displayMaze() {
         for (ArrayList<Character> row : maze) {
-            for (Character cur : row) {
+            for (char cur : row) {
                 System.out.print(cur);
             }
             System.out.println();

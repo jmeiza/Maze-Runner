@@ -13,7 +13,7 @@ public class Path {
     }
 
     public void getPath() {
-        RightHand algorithm = new RightHand(map.getEntry(), map.getExit(), map.getMaze());
+        RightHand algorithm = new RightHand(this.map.getEntry(), this.map.getExit(), this.map.getMaze());
         canonicalPath = algorithm.generatePath();
     }
 
