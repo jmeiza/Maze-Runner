@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class RightHand extends Algorithm {
 
     private char[] direction = {'N','E','S','W'};
-    private StringBuilder instructions = new StringBuilder();
+    private StringBuilder move = new StringBuilder();
+
 
     
     public RightHand(Position start, Position end, ArrayList<ArrayList<Character>> maze) {
@@ -30,69 +31,73 @@ public class RightHand extends Algorithm {
                 index = facingWest(index);
             }
         }
-        return instructions;
+        return move;
     }
 
     private int facingNorth(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' ' && move.charAt(move.length()-1) != 'R') {
             index = (index+1) % direction.length;
-            instructions.append('R');
+            move.append('R');
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' '){
             this.current.updateLocation(-1,0);
-            instructions.append('F');
+            move.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;
-            instructions.append('L');
+            move.append('L');
         }
         return index;
     }
 
     private int facingEast(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' '  && move.charAt(move.length()-1) != 'R' ) {
             index = (index+1) % direction.length;
-            instructions.append('R');               
+            move.append('R');               
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == ' '){
             this.current.updateLocation(0, 1);
-            instructions.append('F');
+            move.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;
-            instructions.append('L');        }
+            move.append('L');        
+        }
         return index;
     }
 
     private int facingSouth(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' '){
-            this.current.updateLocation(1, 0);
-            instructions.append('F');
-        }
-        else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == ' ' && move.charAt(move.length()-1) != 'R') {
             index = (index+ 1) % direction.length;
-            instructions.append('R');         
+            move.append('R');         
+        }
+        else if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == ' '){
+            this.current.updateLocation(1, 0);
+            move.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;
-            instructions.append('L');
+            move.append('L');
         }
         return index;
     }
 
     private int facingWest(int index) {
-        if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' ') {
+        if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == ' ' && move.charAt(move.length()-1) != 'R' ) {
             index = (index + 1) % direction.length;
-            instructions.append('R');              
+            move.append('R');              
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == ' '){
             this.current.updateLocation(0, -1);
-            instructions.append('F');
+            move.append('F');
         }
         else {
             index = (index - 1 + direction.length) % direction.length;
-            instructions.append('L');
+            move.append('L');
         }
         return index;
     }
+
 }
+
+
