@@ -58,16 +58,4 @@ public class Path {
         System.out.println("Factorized Path: " + factorizedPath);
     }
 
-    public void pathChecker(String str) {
-        if (str.equals(canonicalPath.toString())) {
-            System.out.println("The path given is correct!");
-        }
-        else {
-            System.out.println("The path given does not work!");
-        }
-    }
-
-
-
-
 }
