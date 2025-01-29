@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import main.java.ca.mcmaster.se2aa4.mazerunner.Cleaner;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Extract;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Path;
@@ -63,17 +64,19 @@ public class Main {
                 if (cmd.hasOption("p")) {
                     logger.trace("**** Analyzing the given path");
 
+                    Cleaner cleaner = new Cleaner();
                     PathChecker checker = new PathChecker(maze.getMaze());
-                    
+
                     String inputPath = cmd.getOptionValue("p");
 
-                    if (checker.check(maze.getEntry(), maze.getExit(), inputPath)) {
+                    if (checker.check(maze.getEntry(), maze.getExit(), cleaner.clean(inputPath))) {
                         System.out.println("The given path will work!");
                     }
                     else {
                         System.out.println("The given path will not work!");
                     }
                 }
+
                 else {
                     logger.trace("**** Computing path");
                     System.out.println();

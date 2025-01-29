@@ -12,9 +12,8 @@ public class PathChecker {
         this.dir = Direction.EAST;
     }
 
-    public boolean check(Position start, Position end, String str) {
+    public boolean check(Position start, Position end, StringBuilder sb) {
         Position cur = start;
-        StringBuilder sb = new StringBuilder(str);
 
         for (int i = 0; i < sb.length(); i++) {
             if (this.dir == Direction.NORTH) {

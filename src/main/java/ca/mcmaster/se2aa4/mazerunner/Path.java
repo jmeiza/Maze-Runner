@@ -57,5 +57,4 @@ public class Path {
         System.out.println();
         System.out.println("Factorized Path: " + factorizedPath);
     }
-
 }
