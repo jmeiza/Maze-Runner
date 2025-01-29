@@ -47,7 +47,7 @@ public class RightHand extends Algorithm {
         return dir;
     }
 
-    private int facingEast(Direction dir) {
+    private Direction facingEast(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == Cell.PASS  && move.charAt(move.length()-1) != 'R' ) {
             dir = Direction.SOUTH;
             move.append('R');               
@@ -63,7 +63,7 @@ public class RightHand extends Algorithm {
         return dir;
     }
 
-    private int facingSouth(Direction dir) {
+    private Direction facingSouth(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == Cell.PASS && move.charAt(move.length()-1) != 'R') {
             dir = Direction.WEST;
             move.append('R');         
@@ -79,7 +79,7 @@ public class RightHand extends Algorithm {
         return dir;
     }
 
-    private int facingWest(Direction dir) {
+    private Direction facingWest(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == Cell.PASS && move.charAt(move.length()-1) != 'R' ) {
             dir = Direction.NORTH;
             move.append('R');              
