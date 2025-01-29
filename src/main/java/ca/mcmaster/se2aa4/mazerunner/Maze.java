@@ -8,51 +8,24 @@ import java.util.ArrayList;
 
 public class Maze {
     
-    private ArrayList<ArrayList<Character>> maze;
+    private ArrayList<ArrayList<Cell>> maze = new ArrayList<>();
     private Position entryLocation;
     private Position exitLocation;
 
-    public Maze() {
-        maze = new ArrayList<>();
-    }
-    
-    public void createMaze(String inputFile) throws IOException, FileNotFoundException{
-     
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-        String line;
-
-        line = reader.readLine();
-        ArrayList<Character> firstRow = new ArrayList<>();
-
-        for (int idx = 0; idx < line.length(); idx++) {
-            firstRow.add(line.charAt(idx));
-        }
-
-        maze.add(firstRow);         /*Adding the first row to the maze */
-        int maxLength = line.length();          /*Getting the length of the first row since it will always be the longest row */
-
-        while ((line = reader.readLine()) != null) {
-
-            ArrayList<Character> row = new ArrayList<>();
-            
-            for (int idx = 0; idx < line.length(); idx++) {
-                row.add(line.charAt(idx));
-            }
-
-            /*Paading the row since the file contained lines that are shorter than the others */
-            while (row.size() < maxLength) {
-                row.add(' ');
-            }
-
-            maze.add(row);
-        }
-        reader.close();
+    public Maze(ArrayList<ArrayList<Cell>> maze) {
+        this.maze = maze;
     }
         
     public void displayMaze() {
-        for (ArrayList<Character> row : maze) {
-            for (char cur : row) {
-                System.out.print(cur);
+
+        for (ArrayList<Cell> row : maze) {
+            for (Cell cur : row) {
+                if (cur == Cell.WALL) {
+                    System.out.print('#');
+                }
+                else {
+                    System.out.print(' ');
+                }   
             }
             System.out.println();
         }
@@ -60,7 +33,7 @@ public class Maze {
 
     public Position getEntry() {
         for (int i = 0; i < maze.size(); i++) {
-            if (maze.get(i).get(0) == ' '){
+            if (maze.get(i).get(0) == Cell.PASS){
                 entryLocation =  new Position(i, 0);
                 break;
             }
@@ -70,7 +43,7 @@ public class Maze {
 
     public Position getExit() {
         for (int i = 0; i < maze.size(); i++) {
-            if (maze.get(i).get(maze.get(0).size()-1) == ' '){
+            if (maze.get(i).get(maze.get(0).size()-1) == Cell.PASS){
                 exitLocation = new Position(i, maze.get(0).size()-1);
                 break;
             }
@@ -78,15 +51,14 @@ public class Maze {
         return exitLocation;
     }
     
-    public ArrayList<ArrayList<Character>> getMaze() {
+    public ArrayList<ArrayList<Cell>> getMaze() {
 
-        ArrayList<ArrayList<Character>> copy = new ArrayList<>();
+        ArrayList<ArrayList<Cell>> copy = new ArrayList<>();
 
-        for (ArrayList<Character> row : this.maze) {
+        for (ArrayList<Cell> row : this.maze) {
             copy.add(new ArrayList<>(row)); // Create a new list for each
         }
         return copy;
-
     }
 
 }

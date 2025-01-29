@@ -5,9 +5,9 @@ import java.util.ArrayList;
 abstract class Algorithm {
     protected Position end;
     protected Position current;
-    protected ArrayList<ArrayList<Character>> mazeCopy = new ArrayList<>();
+    protected ArrayList<ArrayList<Cell>> mazeCopy = new ArrayList<>();
 
-    public Algorithm(Position start, Position end, ArrayList<ArrayList<Character>> maze) {
+    public Algorithm(Position start, Position end, ArrayList<ArrayList<Cell>> maze) {
         this.current = start;
         this.end = end;
         this.mazeCopy = maze;

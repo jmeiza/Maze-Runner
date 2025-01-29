@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import main.java.ca.mcmaster.se2aa4.mazerunner.Extract;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Path;
 
@@ -34,7 +35,7 @@ public class Main {
         options.addOption("i", true, "reads a maze from a file");
         options.addOption("p", true, "checks if the given path is correct");
 
-        Maze maze = new Maze();     /*Creating an instance of the Maze class */
+        Extract extract = new Extract();
         
         
         try{
@@ -52,7 +53,7 @@ public class Main {
 
                 logger.trace("**** Reading the maze from file " + inputFile);
 
-                maze.createMaze(inputFile);
+                Maze maze = new Maze(extract.extractMaze(inputFile));     /*Creating an instance of the Maze class */
                 maze.displayMaze();
 
                 Path path = new Path(maze);     /*Creating an instance of the Path Class */

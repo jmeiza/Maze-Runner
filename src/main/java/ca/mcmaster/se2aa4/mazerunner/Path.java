@@ -18,7 +18,21 @@ public class Path {
     }
 
     public void displayCanonicalPath() {
-        System.out.println("Canonical Path: " + canonicalPath);
+        StringBuilder formattedPath = new StringBuilder();
+        int index = 0;
+        
+        for (int i = 0; i < canonicalPath.length(); i++) {
+            if (canonicalPath.charAt(i) == canonicalPath.charAt(index)) {
+                formattedPath.append(canonicalPath.charAt(i));
+            }
+            else {
+                formattedPath.append(' ');
+                formattedPath.append(canonicalPath.charAt(i));
+                index = i;
+            }
+        }
+        System.out.println();
+        System.out.println("Canonical Path: " + formattedPath);
     }
 
     public void displayFactorizedPath() {
@@ -40,6 +54,7 @@ public class Path {
         factorizedPath.append(count);
         factorizedPath.append(cur);
 
+        System.out.println();
         System.out.println("Factorized Path: " + factorizedPath);
     }
 
