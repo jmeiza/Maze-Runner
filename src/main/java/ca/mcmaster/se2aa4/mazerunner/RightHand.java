@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class RightHand extends Algorithm {
 
-    private char[] direction = {'N','E','S','W'};
     private StringBuilder move = new StringBuilder();
 
     public RightHand(Position start, Position end, ArrayList<ArrayList<Cell>> maze) {
@@ -13,28 +12,28 @@ public class RightHand extends Algorithm {
 
     @Override
     public StringBuilder generatePath() {
-        int index = 1;
+        Direction dir = Direction.EAST;
 
         while (this.current.equals(this.end) == false) {
-            if (direction[index] == 'N') {
-                index = facingNorth(index);
+            if (dir == Direction.NORTH) {
+                dir = facingNorth(dir);
             }
-            else if (direction[index] == 'E') {
-                index = facingEast(index);
+            else if (dir == Direction.EAST) {
+                dir = facingEast(dir);
             }
-            else if (direction[index] == 'S') {
-                index = facingSouth(index);
+            else if (dir == Direction.SOUTH) {
+                dir = facingSouth(dir);
             }
             else{
-                index = facingWest(index);
+                dir = facingWest(dir);
             }
         }
         return move;
     }
 
-    private int facingNorth(int index) {
+    private Direction facingNorth(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == Cell.PASS && move.charAt(move.length()-1) != 'R') {
-            index = (index+1) % direction.length;
+            dir = Direction.EAST;
             move.append('R');
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == Cell.PASS){
@@ -42,15 +41,15 @@ public class RightHand extends Algorithm {
             move.append('F');
         }
         else {
-            index = (index - 1 + direction.length) % direction.length;
+            dir = Direction.WEST;
             move.append('L');
         }
-        return index;
+        return dir;
     }
 
-    private int facingEast(int index) {
+    private int facingEast(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == Cell.PASS  && move.charAt(move.length()-1) != 'R' ) {
-            index = (index+1) % direction.length;
+            dir = Direction.SOUTH;
             move.append('R');               
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]+1) == Cell.PASS){
@@ -58,15 +57,15 @@ public class RightHand extends Algorithm {
             move.append('F');
         }
         else {
-            index = (index - 1 + direction.length) % direction.length;
+            dir = Direction.NORTH;
             move.append('L');        
         }
-        return index;
+        return dir;
     }
 
-    private int facingSouth(int index) {
+    private int facingSouth(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == Cell.PASS && move.charAt(move.length()-1) != 'R') {
-            index = (index+ 1) % direction.length;
+            dir = Direction.WEST;
             move.append('R');         
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]+1).get(this.current.getLocation()[1]) == Cell.PASS){
@@ -74,15 +73,15 @@ public class RightHand extends Algorithm {
             move.append('F');
         }
         else {
-            index = (index - 1 + direction.length) % direction.length;
+            dir = Direction.EAST;
             move.append('L');
         }
-        return index;
+        return dir;
     }
 
-    private int facingWest(int index) {
+    private int facingWest(Direction dir) {
         if (this.mazeCopy.get(this.current.getLocation()[0]-1).get(this.current.getLocation()[1]) == Cell.PASS && move.charAt(move.length()-1) != 'R' ) {
-            index = (index + 1) % direction.length;
+            dir = Direction.NORTH;
             move.append('R');              
         }
         else if (this.mazeCopy.get(this.current.getLocation()[0]).get(this.current.getLocation()[1]-1) == Cell.PASS){
@@ -90,10 +89,10 @@ public class RightHand extends Algorithm {
             move.append('F');
         }
         else {
-            index = (index - 1 + direction.length) % direction.length;
+            dir = Direction.SOUTH;
             move.append('L');
         }
-        return index;
+        return dir;
     }
 
 }
