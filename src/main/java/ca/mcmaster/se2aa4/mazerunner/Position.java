@@ -7,19 +7,20 @@ public class Position {
         this.location = new int[] {row,col};
     }
 
-    public int[] getLocation() {
+    public int[] getPosition() {
         int[] copy = {this.location[0], this.location[1]};
         return copy;
     }
 
-    public void updateLocation(int rowDelta, int colDelta) {
+    public void updatePosition(int rowDelta, int colDelta) {
         this.location[0] += rowDelta;
         this.location[1] += colDelta;
     }
 
     public boolean equals(Position location2) {
-        if (this.location[0] == location2.getLocation()[0]) {
-            if (this.location[1] == location2.getLocation()[1]) {
+        /*Checks if two Position objects have the same coordinates */
+        if (this.location[0] == location2.getPosition()[0]) {
+            if (this.location[1] == location2.getPosition()[1]) {
                 return true;
             }
         }

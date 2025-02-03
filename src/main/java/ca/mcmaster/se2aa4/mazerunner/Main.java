@@ -32,7 +32,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String inputFile;
         Options options = new Options();
         options.addOption("i", true, "reads a maze from a file");
         options.addOption("p", true, "checks if the given path is correct");
@@ -51,24 +50,31 @@ public class Main {
         logger.info("** Starting Maze Runner");
         try {
             if (cmd.hasOption("i")){
-                inputFile = cmd.getOptionValue("i");
+                String inputFile = cmd.getOptionValue("i");
 
                 logger.trace("**** Reading the maze from file " + inputFile);
 
-                Maze maze = new Maze(extract.extractMaze(inputFile));     /*Creating an instance of the Maze class */
+                /*Creating an instance of the Maze class */
+                Maze maze = new Maze(extract.extractMaze(inputFile));    
                 maze.displayMaze();
 
-                Path path = new Path(maze);     /*Creating an instance of the Path Class */
-                path.getPath();
+                /*Creating an instance of the Path Class */
+                Path path = new Path(maze);   
+                path.getPath();     
                 
+                /*Checks if the user gave instructions to be checked */
                 if (cmd.hasOption("p")) {
                     logger.trace("**** Analyzing the given path");
 
+                    /*Creating an instance of the Cleaner class to clean the string given by the user */
                     Cleaner cleaner = new Cleaner();
+
+                    /*Creating an instance of the PathChecker class */
                     PathChecker checker = new PathChecker(maze.getMaze());
 
                     String inputPath = cmd.getOptionValue("p");
 
+                    /*Checking if the path given by the user will work */
                     if (checker.check(maze.getEntry(), maze.getExit(), cleaner.clean(inputPath))) {
                         System.out.println("The given path will work!");
                     }
@@ -76,7 +82,7 @@ public class Main {
                         System.out.println("The given path will not work!");
                     }
                 }
-
+                /*In the case that the user didn't give a pth to be checked */
                 else {
                     logger.trace("**** Computing path");
                     System.out.println();
@@ -91,7 +97,7 @@ public class Main {
         }
         
 
-        //logger.info("PATH NOT COMPUTED");
+        logger.info("PATH NOT COMPUTED");
         System.out.println();
         logger.info("** End of MazeRunner");
     }

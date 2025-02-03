@@ -1,20 +1,21 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PathChecker {
-    private ArrayList<ArrayList<Cell>> maze;
+    private List<List<Cell>> maze;
     private Direction dir;
     
     
-    public PathChecker(ArrayList<ArrayList<Cell>> maze) {
+    public PathChecker(List<List<Cell>> maze) {
         this.maze = maze;
         this.dir = Direction.EAST;
     }
 
     public boolean check(Position start, Position end, StringBuilder sb) {
         Position cur = start;
-
+        /*Looping through the given path and then implementing the instructions */
         for (int i = 0; i < sb.length(); i++) {
             if (this.dir == Direction.NORTH) {
                 cur = north(cur, sb.charAt(i));
@@ -30,10 +31,10 @@ public class PathChecker {
             }
 
             /*Checks if we are still in bounds and then if we have hit a wall */
-            if (cur.getLocation()[0] < this.maze.size() && cur.getLocation()[1] < this.maze.get(0).size()) {
+            if (cur.getPosition()[0] < this.maze.size() && cur.getPosition()[1] < this.maze.get(0).size()) {
 
-                if (this.maze.get(cur.getLocation()[0]).get(cur.getLocation()[1]) == Cell.WALL) { 
-                    return false;}
+                if (this.maze.get(cur.getPosition()[0]).get(cur.getPosition()[1]) == Cell.WALL) { 
+                    return false;}  /*Exits the method the moment a wall is hit */
             }
             /*If we are out of bounds then we had to have hit the exit and some point because the only way out is the exit*/
             else {return true;}
@@ -50,7 +51,7 @@ public class PathChecker {
 
     private Position north(Position cur, char ch) {
         if (ch == 'F') {
-            cur.updateLocation(-1,0);
+            cur.updatePosition(-1,0);
         }
         else if (ch == 'R') {
             this.dir = Direction.EAST;
@@ -63,7 +64,7 @@ public class PathChecker {
 
     private Position east(Position cur, char ch) {
         if (ch == 'F') {
-            cur.updateLocation(0,1);
+            cur.updatePosition(0,1);
         }
         else if (ch == 'R') {
             this.dir = Direction.SOUTH;
@@ -76,7 +77,7 @@ public class PathChecker {
 
     private Position south(Position cur, char ch) {
         if (ch == 'F') {
-            cur.updateLocation(1,0);
+            cur.updatePosition(1,0);
         }
         else if (ch == 'R') {
             this.dir = Direction.WEST;
@@ -89,7 +90,7 @@ public class PathChecker {
 
     private Position west(Position cur, char ch) {
         if (ch == 'F') {
-            cur.updateLocation(0,-1);
+            cur.updatePosition(0,-1);
         }
         else if (ch == 'R') {
             this.dir = Direction.NORTH;

@@ -9,7 +9,7 @@ public class Cleaner {
 
     public StringBuilder clean(String str) {
 
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {    /*Looping through the string */
             char ch = str.charAt(i);
 
             if (ch == ' ') {            /*Skips any whitespace that is encountered */

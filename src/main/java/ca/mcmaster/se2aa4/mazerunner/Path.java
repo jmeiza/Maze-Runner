@@ -20,7 +20,7 @@ public class Path {
     public void displayCanonicalPath() {
         StringBuilder formattedPath = new StringBuilder();
         int index = 0;
-        
+        /*Looping throught the path and adding spaces between differentc characters that are adjacent to each other */
         for (int i = 0; i < canonicalPath.length(); i++) {
             if (canonicalPath.charAt(i) == canonicalPath.charAt(index)) {
                 formattedPath.append(canonicalPath.charAt(i));
@@ -38,13 +38,13 @@ public class Path {
     public void displayFactorizedPath() {
         char cur = canonicalPath.charAt(0);
         int count = 0;
-
+        /*Creates the facotized form of the canonical path */
         for (int i = 0; i < canonicalPath.length(); i++) {
             if (canonicalPath.charAt(i) == cur) {
                 count++;
             }
             else{
-                factorizedPath.append(count);
+                factorizedPath.append(count);  /*Appending the number*/
                 factorizedPath.append(cur);
                 factorizedPath.append(" ");
                 cur = canonicalPath.charAt(i);

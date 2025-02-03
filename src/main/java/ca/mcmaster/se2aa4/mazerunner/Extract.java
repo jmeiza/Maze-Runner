@@ -1,27 +1,28 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Extract {
     
-    private ArrayList<ArrayList<Cell>> maze;
+    private List<List<Cell>> maze;
 
     public Extract(){
         maze = new ArrayList<>();
     }
 
-    public ArrayList<ArrayList<Cell>> extractMaze(String inputFile) throws IOException, FileNotFoundException{
+    public List<List<Cell>> extractMaze(String inputFile) throws IOException{
      
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         String line;
 
         line = reader.readLine();
-        ArrayList<Cell> firstRow = new ArrayList<>();
+        List<Cell> firstRow = new ArrayList<>();
 
+        /*Reading the first line and creating the first row of the maze since this line will be the maximum length of a line */
         for (int idx = 0; idx < line.length(); idx++) {
             if (line.charAt(idx) == '#'){
                 firstRow.add(Cell.WALL);
@@ -35,9 +36,10 @@ public class Extract {
         maze.add(firstRow);         /*Adding the first row to the maze */
         int maxLength = line.length();          /*Getting the length of the first row since it will always be the longest row */
 
+        /*Reaading through the rest of the file */
         while ((line = reader.readLine()) != null) {
 
-            ArrayList<Cell> row = new ArrayList<>();
+            List<Cell> row = new ArrayList<>();
             
             for (int idx = 0; idx < line.length(); idx++) {
                 if (line.charAt(idx) == '#'){
