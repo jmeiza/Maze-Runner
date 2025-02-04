@@ -76,10 +76,10 @@ public class Main {
 
                     /*Checking if the path given by the user will work */
                     if (checker.check(maze.getEntry(), maze.getExit(), cleaner.clean(inputPath))) {
-                        System.out.println("The given path will work!");
+                        System.out.println("The path given will work!");
                     }
                     else {
-                        System.out.println("The given path will not work!");
+                        System.out.println("The path given will not work!");
                     }
                 }
                 /*In the case that the user didn't give a pth to be checked */
