@@ -5,112 +5,98 @@ import java.util.List;
 
 public class RightHand extends Algorithm {
 
-    private StringBuilder move = new StringBuilder();
+    private Move prevMove;
 
-    public RightHand(Position start, Position end, List<List<Cell>> maze) {
-        super(start, end, maze);
+    public RightHand(List<List<Cell>> maze) {
+        super(maze);
     }
 
     @Override
-    public StringBuilder generatePath() {
-        Direction dir = Direction.EAST;
-
-        while (this.current.equals(this.end) == false) {        /*Checks if the current position is equal to the exit spot of the maze */
-            
-            if (dir == Direction.NORTH) {           /*Currently facing north */
-                dir = facingNorth(dir);         
-            }
-            else if (dir == Direction.EAST) {       /*Currently facing east */
-                dir = facingEast(dir);
-            }
-            else if (dir == Direction.SOUTH) {      /*Currently facing south */
-                dir = facingSouth(dir);
-            }
-            else{
-                dir = facingWest(dir);              /*Currently facing west */
-            }
+    public Move nextMove(Position playerLocation, Direction playerDirection){
+        if (playerDirection == Direction.NORTH) {           /*Currently facing north */
+            this.prevMove = facingNorth(playerLocation);         
         }
-        return move;
+        else if (playerDirection == Direction.EAST) {       /*Currently facing east */
+            this.prevMove = facingEast(playerLocation);
+        }
+        else if (playerDirection == Direction.SOUTH) {      /*Currently facing south */
+            this.prevMove = facingSouth(playerLocation);
+        }
+        else{
+            this.prevMove = facingWest(playerLocation);              /*Currently facing west */
+        }
+        return this.prevMove;
     }
 
-    private Direction facingNorth(Direction dir) {
+    private Move facingNorth(Position cur) {
         /*Checks if there is space to the right and if the last move made was a right turn*/
-        if (this.mazeCopy.get(this.current.getPosition()[0]).get(this.current.getPosition()[1]+1) == Cell.PASS && 
-            move.charAt(move.length()-1) != 'R') {
+        if (this.mazeCopy.get(cur.getPosition()[0]).get(cur.getPosition()[1]+1) == Cell.PASS && 
+            prevMove != Move.RIGHT) {
 
-            dir = Direction.EAST;       /*Turns right*/
-            move.append('R');
+            return Move.RIGHT;  /*Turns right*/
         }
         /*Checks if there is space moving forward*/
-        else if (this.mazeCopy.get(this.current.getPosition()[0]-1).get(this.current.getPosition()[1]) == Cell.PASS){
-            this.current.updatePosition(-1,0);  /*Updates the current position to move forward */
-            move.append('F');
+        else if (this.mazeCopy.get(cur.getPosition()[0]-1).get(cur.getPosition()[1]) == Cell.PASS){
+            return Move.FORWARD;
         }
         else {
-            dir = Direction.WEST;       /*Turns left */
-            move.append('L');
+           /*Turns left */
+            return Move.LEFT;
         }
-        return dir;
     }
 
-    private Direction facingEast(Direction dir) {
+    private Move facingEast(Position cur) {
         /*Checks if there is space to the right and if the last move made was a right turn*/
-        if (this.mazeCopy.get(this.current.getPosition()[0]+1).get(this.current.getPosition()[1]) == Cell.PASS  && 
-            move.charAt(move.length()-1) != 'R' ) {
+        if (this.mazeCopy.get(cur.getPosition()[0]+1).get(cur.getPosition()[1]) == Cell.PASS  && 
+            prevMove != Move.RIGHT ) {
             
-            dir = Direction.SOUTH;  /*Turns right */
-            move.append('R');               
+            /*Turns right */
+            return Move.RIGHT;               
         }
         /*Checks if there is space moving forward */
-        else if (this.mazeCopy.get(this.current.getPosition()[0]).get(this.current.getPosition()[1]+1) == Cell.PASS){
-            this.current.updatePosition(0, 1);  /*Updates the current position to move forward */
-            move.append('F');
+        else if (this.mazeCopy.get(cur.getPosition()[0]).get(cur.getPosition()[1]+1) == Cell.PASS){
+            return Move.FORWARD;
         }
         else {
-            dir = Direction.NORTH;  /*Turns left */
-            move.append('L');        
+            /*Turns left */
+            return Move.LEFT;        
         }
-        return dir;
     }
 
-    private Direction facingSouth(Direction dir) {
+    private Move facingSouth(Position cur) {
         /*Checks if a right turn is possible */
-        if (this.mazeCopy.get(this.current.getPosition()[0]).get(this.current.getPosition()[1]-1) == Cell.PASS && 
-            move.charAt(move.length()-1) != 'R') {
+        if (this.mazeCopy.get(cur.getPosition()[0]).get(cur.getPosition()[1]-1) == Cell.PASS && 
+            prevMove != Move.RIGHT) {
 
-            dir = Direction.WEST;   /*Turns right */
-            move.append('R');         
+            /*Turns right */
+            return Move.RIGHT;        
         }
         /*Checks if moving forward is possible*/
-        else if (this.mazeCopy.get(this.current.getPosition()[0]+1).get(this.current.getPosition()[1]) == Cell.PASS){
-            this.current.updatePosition(1, 0);  /*Updates current position to move forward */
-            move.append('F');
+        else if (this.mazeCopy.get(cur.getPosition()[0]+1).get(cur.getPosition()[1]) == Cell.PASS){
+            return Move.FORWARD;
         }
         else {
-            dir = Direction.EAST;   /*Turns left */
-            move.append('L');
+            /*Turns left */
+            return Move.LEFT;
         }
-        return dir;
     }
 
-    private Direction facingWest(Direction dir) {
+    private Move facingWest(Position cur) {
         /*Checking for a right turn */
-        if (this.mazeCopy.get(this.current.getPosition()[0]-1).get(this.current.getPosition()[1]) == Cell.PASS && 
-            move.charAt(move.length()-1) != 'R' ) {
+        if (this.mazeCopy.get(cur.getPosition()[0]-1).get(cur.getPosition()[1]) == Cell.PASS && 
+            prevMove != Move.RIGHT ) {
 
-            dir = Direction.NORTH;  /*Turns right */
-            move.append('R');              
+            /*Turns right */
+            return Move.RIGHT;              
         }
         /*Checks if moving forward is possible */
-        else if (this.mazeCopy.get(this.current.getPosition()[0]).get(this.current.getPosition()[1]-1) == Cell.PASS){
-            this.current.updatePosition(0, -1);     /*Moves forward */
-            move.append('F');
+        else if (this.mazeCopy.get(cur.getPosition()[0]).get(cur.getPosition()[1]-1) == Cell.PASS){
+            return Move.FORWARD;
         }
         else {
-            dir = Direction.SOUTH;      /*Turns left */
-            move.append('L');
+            /*Turns left */
+            return Move.LEFT;
         }
-        return dir;
     }
 
 }

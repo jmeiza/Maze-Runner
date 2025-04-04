@@ -11,9 +11,13 @@ import org.apache.logging.log4j.Logger;
 
 import main.java.ca.mcmaster.se2aa4.mazerunner.Cleaner;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Extract;
+import main.java.ca.mcmaster.se2aa4.mazerunner.GameManager;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Path;
 import main.java.ca.mcmaster.se2aa4.mazerunner.PathChecker;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Player;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Subject;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Observer;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -37,6 +41,7 @@ public class Main {
         options.addOption("p", true, "checks if the given path is correct");
 
         Extract extract = new Extract();
+        Player player;
         
         
         try{
@@ -58,9 +63,11 @@ public class Main {
                 Maze maze = new Maze(extract.extractMaze(inputFile));    
                 maze.displayMaze();
 
-                /*Creating an instance of the Path Class */
-                Path path = new Path(maze);   
-                path.getPath();     
+                player = new Player(maze.getEntry(), maze);  
+                
+                /* Creating observers */
+                Path path = new Path(player);
+                GameManager gameManager = new GameManager(maze, player);
                 
                 /*Checks if the user gave instructions to be checked */
                 if (cmd.hasOption("p")) {
@@ -86,6 +93,10 @@ public class Main {
                 else {
                     logger.trace("**** Computing path");
                     System.out.println();
+                    
+                    while (!gameManager.gameCondition()){
+                        player.makeMove();
+                    }
                     path.displayCanonicalPath();
                     path.displayFactorizedPath();
                     

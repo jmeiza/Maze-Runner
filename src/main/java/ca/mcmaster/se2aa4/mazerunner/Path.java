@@ -1,22 +1,33 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
-
-public class Path {
+public class Path extends Observer{
     private StringBuilder canonicalPath;
     private StringBuilder factorizedPath;
-    private Maze map;
+    private Move nextMove;
 
-    public Path(Maze map) {
+    public Path(Subject subject) {
+        this.subject = subject;
+        this.subject.attach(this);
+
         canonicalPath = new StringBuilder();
         factorizedPath = new StringBuilder();
-        this.map = map;
     }
 
-    public void getPath() {
-        RightHand algorithm = new RightHand(this.map.getEntry(), this.map.getExit(), this.map.getMaze());
-        canonicalPath = algorithm.generatePath();
-    }
+    @Override
+    public void update(){
+        this.nextMove = this.subject.getMove(); 
 
+        if (this.nextMove == Move.FORWARD){
+            this.canonicalPath.append("F");
+        }
+        else if (this.nextMove == Move.LEFT){
+            this.canonicalPath.append("L");
+        }
+        else{
+            this.canonicalPath.append("R");
+        }
+    }
+    
     public void displayCanonicalPath() {
         StringBuilder formattedPath = new StringBuilder();
         int index = 0;
