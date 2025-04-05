@@ -1,8 +1,8 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
-public class Action extends Command {
+public class ExecuteMove extends Command {
     
-    public Action(Player player){
+    public ExecuteMove(Player player){
         super(player);
     }
 

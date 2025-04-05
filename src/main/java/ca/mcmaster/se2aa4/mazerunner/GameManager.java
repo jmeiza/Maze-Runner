@@ -17,9 +17,9 @@ public class GameManager extends Observer {
 
     @Override
     public void update() {
-        playerPosition = this.subject.getLocation();
+        playerPosition = this.subject.getLocation();        /*The subject here is the player */
 
-        this.isGameOver = playerPosition.equals(this.maze.getExit());
+        this.isGameOver = playerPosition.equals(this.maze.getExit());   /*Checking if the player is currently at the exit */
     }
 
     public boolean gameCondition(){

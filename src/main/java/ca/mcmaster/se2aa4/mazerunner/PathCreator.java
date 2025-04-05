@@ -1,11 +1,11 @@
 package main.java.ca.mcmaster.se2aa4.mazerunner;
 
-public class Path extends Observer{
+public class PathCreator extends Observer{
     private StringBuilder canonicalPath;
     private StringBuilder factorizedPath;
     private Move nextMove;
 
-    public Path(Subject subject) {
+    public PathCreator(Subject subject) {
         this.subject = subject;
         this.subject.attach(this);
 
@@ -15,8 +15,9 @@ public class Path extends Observer{
 
     @Override
     public void update(){
-        this.nextMove = this.subject.getMove(); 
+        this.nextMove = this.subject.getMove();         /*The subject here is the player */
 
+        /*Updating the final path based on the move just performed by the player */
         if (this.nextMove == Move.FORWARD){
             this.canonicalPath.append("F");
         }

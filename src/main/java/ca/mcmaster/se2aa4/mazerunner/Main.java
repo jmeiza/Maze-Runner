@@ -13,7 +13,7 @@ import main.java.ca.mcmaster.se2aa4.mazerunner.Cleaner;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Extract;
 import main.java.ca.mcmaster.se2aa4.mazerunner.GameManager;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Maze;
-import main.java.ca.mcmaster.se2aa4.mazerunner.Path;
+import main.java.ca.mcmaster.se2aa4.mazerunner.PathCreator;
 import main.java.ca.mcmaster.se2aa4.mazerunner.PathChecker;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Player;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Subject;
@@ -69,7 +69,7 @@ public class Main {
                 player = new Player(maze.getEntry(), maze);  
                 
                 /* Creating observers */
-                Path path = new Path(player);
+                PathCreator path = new PathCreator(player);
                 GameManager gameManager = new GameManager(maze, player);
                 
                 /*Checks if the user gave instructions to be checked */
@@ -95,7 +95,7 @@ public class Main {
                     logger.trace("**** Computing path");
                     System.out.println();
 
-                    Command command = new Action(player);
+                    Command command = new ExecuteMove(player);
                     
                     while (!gameManager.gameCondition()){
                         gameManager.executeCommand(command);
