@@ -20,6 +20,7 @@ import main.java.ca.mcmaster.se2aa4.mazerunner.Subject;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Observer;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Command;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Action;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Check;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -75,23 +76,21 @@ public class Main {
                 if (cmd.hasOption("p")) {
                     logger.trace("**** Analyzing the given path");
 
-                    /*Creating an instance of the Cleaner class to clean the string given by the user */
-                    Cleaner cleaner = new Cleaner();
-
-                    /*Creating an instance of the PathChecker class */
-                    PathChecker checker = new PathChecker(maze.getMaze());
+                    Cleaner cleaner = new Cleaner();        /*Creating an instance of the Cleaner class to clean the string given by the user */
 
                     String inputPath = cmd.getOptionValue("p");
 
+                    Command check = new Check(player, cleaner.clean(inputPath));
+
                     /*Checking if the path given by the user will work */
-                    if (checker.check(maze.getEntry(), maze.getExit(), cleaner.clean(inputPath))) {
+                    if (gameManager.executeCommand(check)) {
                         System.out.println("The path given will work!");
                     }
                     else {
                         System.out.println("The path given will not work!");
                     }
                 }
-                /*In the case that the user didn't give a pth to be checked */
+                /*In the case that the user didn't give a path to be checked */
                 else {
                     logger.trace("**** Computing path");
                     System.out.println();

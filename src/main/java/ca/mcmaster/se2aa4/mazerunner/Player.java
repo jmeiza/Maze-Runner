@@ -3,18 +3,17 @@ package main.java.ca.mcmaster.se2aa4.mazerunner;
 
 public class Player extends Subject {
     private Algorithm strategy;
-
-    private Position curLocation;
+    private Move nextMove;
     
+    private Position curLocation;
     private Direction curDir;
 
     private Maze maze;
 
-    private Move nextMove;
-
     private PlayerManager manager;
 
     public Player(Position startLocation, Maze maze){
+
         this.curLocation = startLocation;
         this.maze = maze;
         strategy = new RightHand(this.maze.getMaze());
@@ -40,17 +39,17 @@ public class Player extends Subject {
         this.curDir = newDirection;
     }
 
-
     public void makeMove(){
         this.nextMove = strategy.nextMove(this.curLocation, this.curDir);
         manager.update(nextMove, curDir);
         this.notifyAllObservers();
     }
     
+    public boolean check(StringBuilder path){
+        
+        PathChecker checker = new PathChecker(this.maze.getMaze());
+        return checker.check(this.maze.getEntry(), this.maze.getExit(), path);
 
-
-
-
-    
+    }
 
 }

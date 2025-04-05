@@ -11,8 +11,8 @@ public class GameManager extends Observer {
         subject.attach(this);
     }
 
-    public void executeCommand(Command command){
-        command.execute();
+    public boolean executeCommand(Command command){
+        return command.execute();
     }
 
     @Override

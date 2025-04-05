@@ -8,5 +8,5 @@ public abstract class Command {
         this.player = player;
     }
 
-    public abstract void execute();
+    public abstract boolean execute();
 }

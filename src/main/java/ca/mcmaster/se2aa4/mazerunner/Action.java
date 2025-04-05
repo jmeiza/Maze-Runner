@@ -7,7 +7,8 @@ public class Action extends Command {
     }
 
     @Override
-    public void execute(){
+    public boolean execute(){
         this.player.makeMove();
+        return true;
     }
 }
