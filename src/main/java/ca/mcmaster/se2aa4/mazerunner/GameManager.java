@@ -11,6 +11,10 @@ public class GameManager extends Observer {
         subject.attach(this);
     }
 
+    public void executeCommand(Command command){
+        command.execute();
+    }
+
     @Override
     public void update() {
         playerPosition = this.subject.getLocation();

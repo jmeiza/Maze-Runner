@@ -18,6 +18,8 @@ import main.java.ca.mcmaster.se2aa4.mazerunner.PathChecker;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Player;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Subject;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Observer;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Command;
+import main.java.ca.mcmaster.se2aa4.mazerunner.Action;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -93,9 +95,11 @@ public class Main {
                 else {
                     logger.trace("**** Computing path");
                     System.out.println();
+
+                    Command command = new Action(player);
                     
                     while (!gameManager.gameCondition()){
-                        player.makeMove();
+                        gameManager.executeCommand(command);
                     }
                     path.displayCanonicalPath();
                     path.displayFactorizedPath();
