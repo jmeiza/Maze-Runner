@@ -15,6 +15,7 @@ public class Position {
     public void updatePosition(int rowDelta, int colDelta) {
         this.location[0] += rowDelta;
         this.location[1] += colDelta;
+        
     }
 
     public boolean equals(Position location2) {

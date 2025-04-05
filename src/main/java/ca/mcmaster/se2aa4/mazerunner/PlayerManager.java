@@ -19,6 +19,7 @@ public class PlayerManager{
             this.player.getLocation().updatePosition(0, 0);
         }
         else {
+            /*Updating the coordinates of the player */
             if (dir == Direction.NORTH){
                 this.player.getLocation().updatePosition(-1, 0);
             }
@@ -35,6 +36,7 @@ public class PlayerManager{
     }
 
     private void changeDirection(Move nextMove, Direction dir){
+        /*Updating the direction of the player */
         if (nextMove == Move.LEFT){
             this.player.setDirection(getLeft(dir));
         }

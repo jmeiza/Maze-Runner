@@ -19,7 +19,7 @@ import main.java.ca.mcmaster.se2aa4.mazerunner.Player;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Subject;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Observer;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Command;
-import main.java.ca.mcmaster.se2aa4.mazerunner.Action;
+import main.java.ca.mcmaster.se2aa4.mazerunner.ExecuteMove;
 import main.java.ca.mcmaster.se2aa4.mazerunner.Check;
 
 import org.apache.commons.cli.CommandLine;
@@ -64,9 +64,8 @@ public class Main {
 
                 /*Creating an instance of the Maze class */
                 Maze maze = new Maze(extract.extractMaze(inputFile));    
-                maze.displayMaze();
 
-                player = new Player(maze.getEntry(), maze);  
+                player = new Player(maze.getEntry(), maze);         /*Creating the player object */
                 
                 /* Creating observers */
                 PathCreator path = new PathCreator(player);
@@ -80,7 +79,7 @@ public class Main {
 
                     String inputPath = cmd.getOptionValue("p");
 
-                    Command check = new Check(player, cleaner.clean(inputPath));
+                    Command check = new Check(player, cleaner.clean(inputPath));    /*CReating the check command */
 
                     /*Checking if the path given by the user will work */
                     if (gameManager.executeCommand(check)) {
@@ -95,7 +94,7 @@ public class Main {
                     logger.trace("**** Computing path");
                     System.out.println();
 
-                    Command command = new ExecuteMove(player);
+                    Command command = new ExecuteMove(player);  /*Creating the execute move command */
                     
                     while (!gameManager.gameCondition()){
                         gameManager.executeCommand(command);
