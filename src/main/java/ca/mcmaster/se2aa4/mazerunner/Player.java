@@ -16,7 +16,8 @@ public class Player extends Subject {
 
         this.curLocation = startLocation;
         this.maze = maze;
-        strategy = new RightHand(this.maze.getMaze());
+        //strategy = new RightHand(this.maze.getMaze());
+        strategy = new BreadthFirstSearch(this.maze.getMaze(), startLocation, this.maze.getExit());
         this.curDir = Direction.EAST;
         manager = new PlayerManager(this);
     }

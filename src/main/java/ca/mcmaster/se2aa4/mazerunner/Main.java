@@ -92,7 +92,7 @@ public class Main {
                 /*In the case that the user didn't give a path to be checked */
                 else {
                     logger.trace("**** Computing path");
-                    System.out.println();
+                    System.out.println("I am here");
 
                     Command command = new ExecuteMove(player);  /*Creating the execute move command */
                     

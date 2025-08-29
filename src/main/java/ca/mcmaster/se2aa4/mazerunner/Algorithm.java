@@ -9,5 +9,5 @@ abstract class Algorithm {
     public Algorithm(List<List<Cell>> maze) {
         this.mazeCopy = maze;
     }
-    public abstract Move nextMove(Position playerLocation, Direction playDirection);
+    public abstract Move nextMove(Position playerLocation, Direction playerDirection);
 }

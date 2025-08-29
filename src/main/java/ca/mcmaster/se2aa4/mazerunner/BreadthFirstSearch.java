@@ -28,10 +28,29 @@ public class BreadthFirstSearch extends Algorithm {
         this.nextPositionIndex = 1;
     }
 
-    public Move nextMove(Position playerLocation, Direction playDirection) {
-        Position nextPosition = this.path.get(this.nextPositionIndex);
+    @Override
+    public Move nextMove(Position playerLocation, Direction playerDirection) {
         
-        return Move.RIGHT;
+        Position nextPosition = this.path.get(this.nextPositionIndex);
+        Move next;
+
+        if (playerDirection == Direction.NORTH) {
+            next = facingNorth(nextPosition, playerLocation);
+        }
+        else if (playerDirection == Direction.EAST) {
+            next = facingEast(nextPosition, playerLocation);
+        }
+        else if (playerDirection == Direction.WEST) {
+            next = facingWest(nextPosition, playerLocation);
+        }
+        else {
+            next = facingSouth(nextPosition, playerLocation);
+        }
+        
+        if (next == Move.FORWARD) {
+            this.nextPositionIndex += 1;
+        }
+        return next;
     }
 
     private void bfs() {
@@ -61,12 +80,13 @@ public class BreadthFirstSearch extends Algorithm {
             node = parent.get(node);
         }
         Collections.reverse(this.path);
+
     }
 
     private List<Position> getNeighbors(Position current){
         List<Position> neighbors = new ArrayList<>();
-        int x_coord = current.getPosition()[0];
-        int y_coord = current.getPosition()[1];
+        int x_coord = current.getRow();
+        int y_coord = current.getCol();
 
         int [][] directions = {{1,0}, {-1,0}, {0,1}, {0,-1}};
 
@@ -84,4 +104,76 @@ public class BreadthFirstSearch extends Algorithm {
         return neighbors;
     }
     
+    private Move facingNorth(Position next, Position cur) {
+        if (cur.getRow() - next.getRow() == -1) {
+            return Move.RIGHT;
+        }
+        else if (cur.getRow() - next.getRow() == 1) {
+            return Move.FORWARD;
+        }
+        else if (cur.getCol() - next.getCol() == 1) {
+            return Move.LEFT;
+        }
+        else {
+            return Move.RIGHT;
+        }
+    }
+
+    private Move facingEast(Position next, Position cur) {
+        // Going down to the next row
+        if (cur.getRow() - next.getRow() == -1) {
+            return Move.RIGHT;
+        }
+        // Going up to the previous row
+        else if (cur.getRow() - next.getRow() == 1) {
+            return Move.LEFT;
+        }
+        // Going one column to the left
+        else if (cur.getCol() - next.getCol() == 1) {
+            return Move.LEFT;
+        }
+        // Going one column to the right
+        else {
+            return Move.FORWARD;
+        }
+    }
+
+    private Move facingSouth(Position next, Position cur) {
+        // Going down to the next row
+        if (cur.getRow() - next.getRow() == -1) {
+            return Move.FORWARD;
+        }
+        // Going up to the previous row
+        else if (cur.getRow() - next.getRow() == 1) {
+            return Move.LEFT;
+        }
+        // Going one column to the left
+        else if (cur.getCol() - next.getCol() == 1) {
+            return Move.RIGHT;
+        }
+        // Going one column to the right
+        else {
+            return Move.LEFT;
+        }
+    }
+
+    private Move facingWest(Position next, Position cur) {
+        // Going down to the next row
+        if (cur.getPosition()[0] - next.getPosition()[0] == -1) {
+            return Move.LEFT;
+        }
+        // Going up to the previous row
+        else if (cur.getRow() - next.getRow() == 1) {
+            return Move.RIGHT;
+        }
+        // Going one column to the left
+        else if (cur.getCol() - next.getCol() == 1) {
+            return Move.FORWARD;
+        }
+        // Going one column to the right
+        else {
+            return Move.RIGHT;
+        }
+    }
+
 }
